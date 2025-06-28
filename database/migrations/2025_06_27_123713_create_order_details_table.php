@@ -12,13 +12,14 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('order_details', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
+            $table->foreignId('book_id')->constrained('books')->onDelete('cascade');
+            $table->integer('quantity');
+            $table->decimal('price', 8, 2);
+            $table->decimal('subtotal', 10, 2);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -30,7 +31,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('order_details');
     }
-
 };
