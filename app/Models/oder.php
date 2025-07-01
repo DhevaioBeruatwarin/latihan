@@ -10,6 +10,7 @@ class oder extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'orders';
     protected $fillable = [
         'user_id',
         'total_price',
